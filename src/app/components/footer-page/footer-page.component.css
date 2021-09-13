@@ -1,0 +1,11 @@
+
+.footer {
+  max-width: 1024px;
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+}
+
+h5{
+  color: white;
+}
