@@ -1,2 +1,17 @@
-<p>client-menu works!</p>
+<h1 class="title">{{categoryName | async }}</h1>
 
+<div class="slider">
+
+<ng-container *ngIf="dishes | async as dish">
+<mat-card class="dish-card" *ngFor="let d of dish">
+  <mat-card-header>
+    <mat-card-title>{{d.dishName}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src="{{d.image}}" alt="Photo of dish">
+  <mat-card-content>
+    <p>{{d.dishWeight}} - ${{d.dishPrice}}</p>
+    <p>{{d.dishDescription}}</p>
+  </mat-card-content>
+</mat-card>
+</ng-container>
+</div>

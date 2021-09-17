@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {select, Store} from "@ngrx/store";
+import {managerCategories, managerSelectDishes} from "../../store/manager/manager.selectors";
+
+
 
 @Component({
   selector: 'app-manager-menu',
@@ -7,7 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagerMenuComponent implements OnInit {
 
-  constructor() { }
+  managerCategories = this.store.pipe(select(managerCategories))
+  managerSelectDishes = this.store.pipe(select(managerSelectDishes))
+
+  constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
   }

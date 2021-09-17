@@ -1,11 +1,37 @@
 
-.footer {
-  max-width: 1024px;
+.footer{
   display: flex;
-  justify-content: space-between;
-  background-color: black;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  color: white;
+  margin-top: 200px;
+}
+.footer a {
+  text-decoration: none;
+  color: white;
 }
 
-h5{
-  color: white;
+.back-to-top {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  border: solid 1px grey;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+  font-size: 30px;
+}
+
+.back-to-top img{
+  width: 20px;
+  border-radius: 50%;
+  transform: rotate(270deg);
 }
