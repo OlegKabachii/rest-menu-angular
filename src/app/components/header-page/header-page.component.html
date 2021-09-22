@@ -1,25 +1,42 @@
-<div class="header">
+<div
+  class="header"
+  [formGroup]="infoForm"
+>
   <img
     [routerLink]="['/']"
+    (click)="isManager = !isManager"
     src="https://cdn-icons-png.flaticon.com/128/562/562729.png"
     alt="LOGO">
   <ng-container *ngIf="info | async as inf">
     <div class="header_info" *ngFor="let i of inf">
       <div class="header_info-item">
         <div class="image_address">
-
           <img src="https://cdn-icons-png.flaticon.com/128/1198/1198464.png" alt="">
-
         </div>
-        Address: {{i.address}}
+        <input
+          value="{{i.address}}"
+          formControlName="address"
+          class="editedField"
+          [readOnly]="!isManager"
+        >
       </div>
       <div class="header_info-item">
         <img src="https://cdn-icons-png.flaticon.com/128/2971/2971416.png" alt="">
-        Phone: {{i.phone}}
+        <input
+          value="{{i.phone}}"
+          formControlName="phone"
+          class="editedField"
+          [readOnly]="!isManager"
+        >
       </div>
       <div class="header_info-item">
         <img src="https://cdn-icons-png.flaticon.com/128/747/747982.png" alt="">
-        WIFI: {{i.wifi}}
+        <input
+          value="{{i.wifi}}"
+          formControlName="wifi"
+          class="editedField"
+          [readOnly]="!isManager"
+        >
       </div>
     </div>
   </ng-container>
@@ -27,17 +44,31 @@
   <div class="login">
     <a
       [routerLink]="'/admin'"
-      href=""><img src="https://cdn-icons-png.flaticon.com/128/1000/1000946.png" alt=""
-    ></a>
+      (click)="isManager = !isManager"
+      href="">
+      <img src="https://cdn-icons-png.flaticon.com/128/1000/1000946.png" alt=""
+      ></a>
   </div>
 </div>
 
+<button
+  mat-button
+  class="btn_add"
+  (click)="updateInfo()"
+>ADD CATEGORY</button>
+
 <nav class="header_nav">
   <div class="menu">
-    <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
-      <mat-icon>menu</mat-icon>
+    <button mat-icon-button aria-label="Example icon button with a menu icon">
+      <mat-icon [matMenuTriggerFor]="menu">menu</mat-icon>
+      <mat-menu #menu="matMenu">
+        <div *ngFor="let c of categories | async">
+          <button mat-menu-item (click)="onSelectCategory(c.id)">{{c.categoryName}}</button>
+        </div>
+      </mat-menu>
     </button>
   </div>
+
   <div class="nav">
     <ng-container *ngIf="categories | async as names">
       <button mat-button *ngFor="let cat of names" (click)="onSelectCategory(cat.id)">{{cat.categoryName}}</button>

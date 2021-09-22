@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
-import {managerCategories, managerSelectDishes} from "../../store/manager/manager.selectors";
-
-
+import {ThemePalette} from "@angular/material/core";
+import {categories, category, categoryName, selectDishes} from "../../store/app/app.selectors";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-manager-menu',
@@ -11,12 +11,35 @@ import {managerCategories, managerSelectDishes} from "../../store/manager/manage
 })
 export class ManagerMenuComponent implements OnInit {
 
-  managerCategories = this.store.pipe(select(managerCategories))
-  managerSelectDishes = this.store.pipe(select(managerSelectDishes))
+  categories = this.store.pipe(select(categories))
+  dishes = this.store.pipe(select(selectDishes))
+  categoryName = this.store.pipe(select(categoryName))
+  category = this.store.pipe(select(category))
 
-  constructor(private store: Store<any>) { }
+  color: ThemePalette = 'warn';
+  checked = true;
+  isCategoryAvailable = true
+  newDishAvailable: boolean = false
+
+  constructor(
+    private store: Store<any>,
+    private route: Router
+  ) {
+  }
 
   ngOnInit(): void {
+
+  }
+
+  createCategory() {
+    //this.route.navigate()
+  }
+
+  removeCategory() {
+    this.category.subscribe((res)=>{
+      // this.store.dispatch(removeCategoryByID({id: res.id}))
+      console.log(res.id)
+    })
   }
 
 }

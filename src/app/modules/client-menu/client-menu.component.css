@@ -1,13 +1,28 @@
-
-.slider{
+.title {
   max-width: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  /*align-items: center;*/
+  font-family: 'Gluten', cursive;
+  color: white;
+  font-size: 44px;
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 70px;
+
 }
 
-.title{
+.slider {
+  max-width: 95%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.slider:last-child {
+  justify-content: start;
+}
+
+.category_name {
   color: white;
   margin-left: 50px;
   margin-bottom: 20px;
@@ -15,14 +30,62 @@
   font-weight: 500;
 
 }
-.mat-card-image{
+
+.mat-card-image {
   border-radius: 5%;
-  margin-left: 90px;
-  width: 300px;
-  height: 300px;
+  margin-left: 110px;
+  width: 400px;
+  height: 350px;
 }
 
 .dish-card {
-  max-width: 400px;
+  max-width: 80%;
+  width: 500px;
+  height: 550px;
+  margin: 30px 50px;
+  background-image: url("https://thumbs.dreamstime.com/b/template-menu-design-empty-space-near-scoops-spoons-spices-dark-wooden-background-top-view-copy-108175205.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.mat-card-content {
+  color: #0fadd4;
+  font-size: 18px;
+  padding: 10px;
+  text-align: end;
+  font-weight: bold;
+}
+
+.mat_card_item{
+  color: darksalmon;
+}
+
+@media only screen and (max-width: 960px) {
+  .slider {
+    flex-direction: column;
+  }
+
+  .dish-card {
+    max-width: 80%;
+    width: 400px;
+    height: 400px;
+  }
+
+  .mat-card-image {
+    width: 200px;
+    height: 150px;
+    margin-left: 80px;
+  }
+
+  .title {
+    display: none;
+    /*margin-top: 30px;*/
+  }
+
+  .mat-card-content {
+    font-size: 16px;
+    padding: 5px;
+  }
 }
 

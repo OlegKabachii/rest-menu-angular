@@ -1,18 +1,36 @@
-<h1 class="title">{{managerCategories | async }}</h1>
+<h1
+  class="title"
+>{{categoryName | async }}</h1>
+
+<mat-slide-toggle
+  size="small"
+  class="catToggle"
+  [color]="color"
+  [checked]='isCategoryAvailable'
+  [(ngModel)]='isCategoryAvailable'
+></mat-slide-toggle>
+<button
+  mat-button
+  class="btn_add"
+  (click)="createCategory()"
+>ADD CATEGORY</button>
+<button
+  mat-button
+  color="warn"
+  (click)="removeCategory()"
+>REMOVE CATEGORY</button>
 
 <div class="slider">
+  <ng-container *ngIf="dishes | async as dishes">
 
-  <ng-container *ngIf="managerSelectDishes | async as dish">
-    <mat-card class="dish-card" *ngFor="let d of dish">
-      <mat-card-header>
-        <mat-card-title>{{d.dishName}}</mat-card-title>
-      </mat-card-header>
-      <img mat-card-image src="{{d.image}}" alt="Photo of dish">
-      <mat-card-content>
-        <p>{{d.dishWeight}} - ${{d.dishPrice}}</p>
-        <p>{{d.dishDescription}}</p>
-      </mat-card-content>
-    </mat-card>
+    <app-dish-new></app-dish-new>
+
+    <app-dish-item
+      *ngFor="let dish of dishes"
+      [dish]='dish'
+      [isCategoryAvailable]="isCategoryAvailable"
+    ></app-dish-item>
+
   </ng-container>
 </div>
 

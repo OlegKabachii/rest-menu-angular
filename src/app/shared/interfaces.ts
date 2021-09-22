@@ -1,4 +1,4 @@
-export interface ManagerStore {
+export interface AppStore {
   dishes: Dish[]
   categories: Category[]
   info: Info []

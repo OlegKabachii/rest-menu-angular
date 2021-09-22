@@ -2,11 +2,14 @@
 .footer{
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 50px;
   color: white;
   margin-top: 200px;
+  padding-top: 50px;
+  padding-bottom: 25px;
+  align-items: end;
+  background: rgba(168, 163, 163, 0.3);
 }
+
 .footer a {
   text-decoration: none;
   color: white;
@@ -15,7 +18,7 @@
 .back-to-top {
   position: fixed;
   bottom: 40px;
-  right: 40px;
+  right: 20px;
   z-index: 9999;
   width: 32px;
   height: 32px;
