@@ -6,7 +6,7 @@ import {
   dishesLoaded,
   dishUploaded,
   infoLoaded, infoUpdated,
-  removeCategoryByID
+  removeCategoryByID, setActiveCategory
 } from "./app.actions";
 import {AppStore} from "../../shared/interfaces";
 
@@ -14,7 +14,8 @@ import {AppStore} from "../../shared/interfaces";
 export const initialState: AppStore = {
   categories: [],
   dishes: [],
-  info: []
+  info: [],
+  selectedCategoryId: null
 }
 
 const appReducer = createReducer(
@@ -24,6 +25,12 @@ const appReducer = createReducer(
       ...state, dishes: params.dishes
     }
   }),
+  on(setActiveCategory, (state, params) => {
+    return {
+      ...state, selectedCategoryId: params.id
+    }
+  }),
+
   on(categoryLoaded, (state, params) => {
     return {
       ...state, categories: params.categories
@@ -59,7 +66,7 @@ const appReducer = createReducer(
 
   on(infoUpdated, (state, params) => {
     return {
-      ...state, info: [...state.info, params.info]
+      ...state, info: [params.info]
     }
   }),
 )

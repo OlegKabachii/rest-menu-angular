@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
-import {categories, categoryName, selectDishes} from "../../store/app/app.selectors";
+import {categories, category, clientDishes, selectDishes} from "../../store/app/app.selectors";
 
 @Component({
   selector: 'app-client-menu',
@@ -11,7 +11,9 @@ export class ClientMenuComponent implements OnInit {
 
   categories = this.store.pipe(select(categories))
   dishes = this.store.pipe(select(selectDishes))
-  categoryName = this.store.pipe(select(categoryName))
+  clientDishes = this.store.pipe(select(clientDishes))
+  category = this.store.pipe(select(category))
+
 
 
 

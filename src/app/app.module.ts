@@ -15,11 +15,11 @@ import {ManagerMenuModule} from "./modules/manager-menu/manager-menu.module";
 import {AppStore} from "./shared/interfaces";
 
 export interface AppState {
-  client: AppStore
+  app: AppStore
 }
 
 const reducers: ActionReducerMap<any> = {
-  client: fromApp.reducer,
+  app: fromApp.reducer,
 }
 
 

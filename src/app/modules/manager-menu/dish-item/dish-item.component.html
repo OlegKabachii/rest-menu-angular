@@ -33,6 +33,18 @@
           (click)="onReset()"
         >CANCEL
         </button>
+        <input
+          type="file"
+          class="dn"
+          #input
+          (click)="input.value = ''"
+          (change)="onFileUpload($event.target)"
+        >
+        <button
+          mat-button
+          (click)="triggerClick()"
+        >IMAGE
+        </button>
         <button
           mat-button
           (click)="submitChange()"

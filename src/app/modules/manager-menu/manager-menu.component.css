@@ -6,8 +6,16 @@
   flex-direction: column;
 }
 
+.top{
+display: flex;
+  margin-top: 50px;
+}
+
 .mat-slide-toggle {
   width: 100%;
+  margin-top: 7px;
+  margin-left: 20px;
+
 }
 
 .btn_add {
@@ -32,12 +40,6 @@
   font-weight: 500;
 
 }
-
-.catToggle {
-  margin-left: 50px;
-  color: white;
-}
-
 
 .mat_card_input {
   font-size: 24px;

@@ -2,6 +2,7 @@ export interface AppStore {
   dishes: Dish[]
   categories: Category[]
   info: Info []
+  selectedCategoryId: string | null
 }
 
 export interface Dish {

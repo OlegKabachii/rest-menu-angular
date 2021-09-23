@@ -1,25 +1,25 @@
-
 import {createSelector} from "@ngrx/store";
 import {AppState} from "../../app.module";
-import {AppStore} from "../../shared/interfaces";
+import {AppStore, Category, Dish} from "../../shared/interfaces";
 
-export const client = (state: AppState) => state.client
+export const app = (state: AppState) => state.app
 
-export const categories = createSelector(client, (state: AppStore) => state.categories)
-export const selectDishes = createSelector(client, (state: AppStore) => state.dishes)
+export const categories = createSelector(app, (state: AppStore) => state.categories)
 
-export const info = createSelector(client, (state: AppStore) => state.info)
+export const clientCategories = createSelector(app, (state: AppStore) => {
+  return state.categories.filter((el: Category) => el.categoryAvailable)
+})
 
- export const categoryName = createSelector(client, (state:AppStore)=> {
-   let catId = state.dishes[0] && state.dishes[0].categoryId
-   const category = state.categories.find(el => catId === el.id)
-   return catId && category ? category.categoryName : state.categories[0] && state.categories[0].categoryName
- })
+export const clientDishes = createSelector(app, (state: AppStore) => {
+  return state.dishes.filter((el: Dish) => el.dishAvailable)
+})
 
-export const category = createSelector(client, (state:AppStore)=> {
-  let catId = state.dishes[0] && state.dishes[0].categoryId
-  const category = state.categories.find(el => catId === el.id)
-  return catId && category ? category : state.categories[0] && state.categories[0]
+export const selectDishes = createSelector(app, (state: AppStore) => state.dishes)
+
+export const info = createSelector(app, (state: AppStore) => state.info)
+
+export const category = createSelector(app, (state: AppStore) => {
+  return state.selectedCategoryId ? state.categories.find(el => el.id === state.selectedCategoryId) : state.categories[0]
 })
 
 

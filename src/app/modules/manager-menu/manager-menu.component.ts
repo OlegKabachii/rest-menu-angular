@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {ThemePalette} from "@angular/material/core";
-import {categories, category, categoryName, selectDishes} from "../../store/app/app.selectors";
-import {Router} from "@angular/router";
+import {categories, category, selectDishes} from "../../store/app/app.selectors";
+import {removeCategoryByID} from "../../store/app/app.actions";
 
 @Component({
   selector: 'app-manager-menu',
@@ -13,7 +13,6 @@ export class ManagerMenuComponent implements OnInit {
 
   categories = this.store.pipe(select(categories))
   dishes = this.store.pipe(select(selectDishes))
-  categoryName = this.store.pipe(select(categoryName))
   category = this.store.pipe(select(category))
 
   color: ThemePalette = 'warn';
@@ -22,8 +21,7 @@ export class ManagerMenuComponent implements OnInit {
   newDishAvailable: boolean = false
 
   constructor(
-    private store: Store<any>,
-    private route: Router
+    private store: Store<any>
   ) {
   }
 
@@ -31,15 +29,14 @@ export class ManagerMenuComponent implements OnInit {
 
   }
 
+  //todo: createCategory
   createCategory() {
     //this.route.navigate()
   }
 
-  removeCategory() {
-    this.category.subscribe((res)=>{
-      // this.store.dispatch(removeCategoryByID({id: res.id}))
-      console.log(res.id)
-    })
+  removeCategory(id: string) {
+      this.store.dispatch(removeCategoryByID({id}))
+
   }
 
 }

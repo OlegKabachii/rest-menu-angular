@@ -16,6 +16,6 @@ export class InfoService {
   }
 
   updateInfo(isExist: boolean, info: Info) {
-    return this.httpClient.patch(`${this.apiUrl}/1`, info)
+    return this.httpClient.patch(this.apiUrl, {isExist, info})
   }
 }

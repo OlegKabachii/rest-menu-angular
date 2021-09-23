@@ -11,6 +11,11 @@
 
 }
 
+.dn {
+  display: none;
+}
+
+
 .readOnly {
   pointer-events: none;
 }

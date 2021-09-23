@@ -1,14 +1,7 @@
-<h1
-  class="title"
->{{categoryName | async }}</h1>
 
-<mat-slide-toggle
-  size="small"
-  class="catToggle"
-  [color]="color"
-  [checked]='isCategoryAvailable'
-  [(ngModel)]='isCategoryAvailable'
-></mat-slide-toggle>
+<ng-container *ngIf="category | async as category">
+
+
 <button
   mat-button
   class="btn_add"
@@ -17,8 +10,21 @@
 <button
   mat-button
   color="warn"
-  (click)="removeCategory()"
+  (click)="removeCategory(category.id)"
 >REMOVE CATEGORY</button>
+
+<div class="top">
+<h1
+  class="title"
+>{{category.categoryName}}</h1>
+<mat-slide-toggle
+  size="small"
+  [color]="color"
+  [checked]='isCategoryAvailable'
+  [(ngModel)]='isCategoryAvailable'
+></mat-slide-toggle>
+</div>
+
 
 <div class="slider">
   <ng-container *ngIf="dishes | async as dishes">
@@ -34,3 +40,4 @@
   </ng-container>
 </div>
 
+</ng-container>

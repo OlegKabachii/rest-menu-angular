@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {loadCategory, loadDishesByCategory, loadInfo} from "../../store/app/app.actions";
+import {loadCategory, loadDishesByCategory, loadInfo, updateInfo} from "../../store/app/app.actions";
 import {select, Store} from "@ngrx/store";
-import {categories, info, selectDishes} from "../../store/app/app.selectors";
+import {categories, clientCategories, info, selectDishes} from "../../store/app/app.selectors";
 import {FormControl, FormGroup} from "@angular/forms";
 import {tap} from "rxjs/operators";
+import {Info} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-header-page',
@@ -19,6 +20,7 @@ export class HeaderPageComponent implements OnInit {
   info = this.store.pipe(select(info), tap(([el]) => {
     this.infoForm.patchValue(el)
   }))
+  clientCategories = this.store.pipe(select(clientCategories))
 
   isManager = false
 
@@ -28,7 +30,6 @@ export class HeaderPageComponent implements OnInit {
     phone: new FormControl(''),
     wifi: new FormControl(''),
   })
-
 
 
   constructor(
@@ -47,9 +48,9 @@ export class HeaderPageComponent implements OnInit {
   }
 
   updateInfo() {
-    const isExist = !!this.infoForm.value.length
-    console.log(this.infoForm)
-    console.log(isExist)
-    // this.store.dispatch(updateInfo({isExist: isExist, info: this.infoForm.value as Info}))
+    let isExist = !!this.infoForm.value.address.length
+      && !!this.infoForm.value.phone.length
+      && !!this.infoForm.value.wifi.length
+    this.store.dispatch(updateInfo({isExist, info: this.infoForm.value as Info}))
   }
 }
