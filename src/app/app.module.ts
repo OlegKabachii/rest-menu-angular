@@ -13,6 +13,10 @@ import {AppEffects} from "./store/app/app.effects";
 import {ClientMenuModule} from "./modules/client-menu/client-menu.module";
 import {ManagerMenuModule} from "./modules/manager-menu/manager-menu.module";
 import {AppStore} from "./shared/interfaces";
+import {DialogComponent} from "./shared/dialog/dialog.component";
+import {SidenavMenuComponent} from './components/sidenav-menu/sidenav-menu.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 export interface AppState {
   app: AppStore
@@ -27,8 +31,10 @@ const reducers: ActionReducerMap<any> = {
   declarations: [
     AppComponent,
     HeaderPageComponent,
-    FooterPageComponent
+    FooterPageComponent,
+    SidenavMenuComponent
   ],
+  entryComponents: [DialogComponent],
   imports: [
     AppRoutingModule,
     HttpClientModule,
@@ -36,7 +42,9 @@ const reducers: ActionReducerMap<any> = {
     EffectsModule.forRoot([AppEffects]),
     ClientMenuModule,
     ManagerMenuModule,
-    MaterialModule
+    MaterialModule,
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [],
   exports: [],

@@ -4,23 +4,24 @@ import {ManagerMenuComponent} from "./manager-menu.component";
 import {DishItemComponent} from './dish-item/dish-item.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MaterialModule} from "../../shared/material.module";
-import { DishNewComponent } from './dish-new/dish-new.component';
-import { CategoryNewComponent } from './category-new/category-new.component';
+import {DishNewComponent} from './dish-new/dish-new.component';
+import {RouterModule, Routes} from "@angular/router";
+
+
+const routes: Routes = []
 
 @NgModule({
   declarations: [
     ManagerMenuComponent,
     DishItemComponent,
-    DishNewComponent,
-    CategoryNewComponent
+    DishNewComponent
   ],
   imports: [
     CommonModule,
-
+    RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
-
+    MaterialModule
   ],
   exports: [ManagerMenuComponent]
 })

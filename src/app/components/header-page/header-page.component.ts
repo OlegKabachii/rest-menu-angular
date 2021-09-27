@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {loadCategory, loadDishesByCategory, loadInfo, updateInfo} from "../../store/app/app.actions";
 import {select, Store} from "@ngrx/store";
 import {categories, clientCategories, info, selectDishes} from "../../store/app/app.selectors";
@@ -9,11 +9,16 @@ import {Info} from "../../shared/interfaces";
 @Component({
   selector: 'app-header-page',
   templateUrl: './header-page.component.html',
-  styleUrls: ['./header-page.component.css']
+  styleUrls: ['./header-page.component.scss']
 })
 
 
 export class HeaderPageComponent implements OnInit {
+
+
+  @Output() toggleEmitted: EventEmitter<void> = new EventEmitter<void>()
+  @Output() onManager: EventEmitter<boolean> = new EventEmitter<boolean>()
+
 
   categories = this.store.pipe(select(categories))
   dishes = this.store.pipe(select(selectDishes))
@@ -23,7 +28,6 @@ export class HeaderPageComponent implements OnInit {
   clientCategories = this.store.pipe(select(clientCategories))
 
   isManager = false
-
 
   infoForm: FormGroup = new FormGroup({
     address: new FormControl(''),
@@ -53,4 +57,23 @@ export class HeaderPageComponent implements OnInit {
       && !!this.infoForm.value.wifi.length
     this.store.dispatch(updateInfo({isExist, info: this.infoForm.value as Info}))
   }
+
+  toggleSideBar() {
+    this.toggleEmitted.emit()
+  }
+
+  onSwitchToManager() {
+    this.onManager.emit(this.isManager)
+  }
+
+  clientPage() {
+    this.isManager = false
+    this.onManager.emit(this.isManager)
+  }
+
+  managerPage() {
+    this.isManager = true
+    this.onManager.emit(this.isManager)
+  }
+
 }

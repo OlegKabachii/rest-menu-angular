@@ -5,7 +5,7 @@ import {categories, category, clientDishes, selectDishes} from "../../store/app/
 @Component({
   selector: 'app-client-menu',
   templateUrl: './client-menu.component.html',
-  styleUrls: ['./client-menu.component.css']
+  styleUrls: ['./client-menu.component.scss']
 })
 export class ClientMenuComponent implements OnInit {
 

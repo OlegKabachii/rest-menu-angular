@@ -1,14 +1,47 @@
 
+
+input {
+  &.ng-invalid.ng-touched {
+    border-bottom: 1px solid red;
+  }
+  &.ng-valid.ng-touched{
+    border: none;
+  }
+}
+
+textarea{
+  &.ng-invalid.ng-touched {
+    border-bottom: 1px solid red;
+  }
+  &.ng-valid.ng-touched{
+    border: none;
+  }
+}
+
+.readOnly {
+  pointer-events: none;
+}
+
+.editedField {
+  background: transparent;
+  border: 0;
+}
+
+.editedField:focus {
+  outline: none;
+}
+
 .slider {
   max-width: 100%;
+  width: 98%;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
 }
 
 .top{
-display: flex;
-  margin-top: 50px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .mat-slide-toggle {
@@ -34,8 +67,7 @@ display: flex;
 
 .title {
   color: white;
-  margin-left: 50px;
-  margin-bottom: 20px;
+  margin-left: 10px;
   font-size: 30px;
   font-weight: 500;
 

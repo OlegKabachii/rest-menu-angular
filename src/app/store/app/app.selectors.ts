@@ -6,22 +6,19 @@ export const app = (state: AppState) => state.app
 
 export const categories = createSelector(app, (state: AppStore) => state.categories)
 
-export const clientCategories = createSelector(app, (state: AppStore) => {
-  return state.categories.filter((el: Category) => el.categoryAvailable)
-})
+export const clientCategories = createSelector(app, (state: AppStore) => state.categories.filter((el: Category) => el?.categoryAvailable))
 
-export const clientDishes = createSelector(app, (state: AppStore) => {
-  return state.dishes.filter((el: Dish) => el.dishAvailable)
-})
+export const clientDishes = createSelector(app, (state: AppStore) => state.dishes.filter((el: Dish) => el.dishAvailable))
 
 export const selectDishes = createSelector(app, (state: AppStore) => state.dishes)
 
 export const info = createSelector(app, (state: AppStore) => state.info)
 
 export const category = createSelector(app, (state: AppStore) => {
-  return state.selectedCategoryId ? state.categories.find(el => el.id === state.selectedCategoryId) : state.categories[0]
+  return state.selectedCategoryId ? state.categories.find(el => el?.id === state.selectedCategoryId) : state.categories[0] || {}
 })
 
+export const selectedCategory = createSelector(app, (state: AppStore) => state.selectedCategoryId)
 
 
 

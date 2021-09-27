@@ -4,7 +4,7 @@
 >
   <img
     [routerLink]="['/']"
-    (click)="isManager = false"
+    (click)="clientPage()"
     src="https://cdn-icons-png.flaticon.com/128/562/562729.png"
     alt="LOGO">
   <ng-container *ngIf="info | async as inf">
@@ -47,32 +47,33 @@
   <div class="login">
     <a
       [routerLink]="'/admin'"
-      (click)="isManager = true"
+      (click)="managerPage()"
       href="">
-      <img src="https://cdn-icons-png.flaticon.com/128/1000/1000946.png" alt=""
+      <img src="https://cdn-icons-png.flaticon.com/128/1000/1000946.png" alt="Login"
       ></a>
   </div>
 </div>
 
 <nav class="header_nav">
+  <ng-container *ngIf="(isManager ? categories: clientCategories) | async as names">
 
 
-<!--  <div class="menu">-->
-<!--    <button mat-icon-button aria-label="Example icon button with a menu icon">-->
-<!--      <mat-icon [matMenuTriggerFor]="menu">menu</mat-icon>-->
-<!--      <mat-menu #menu="matMenu">-->
-<!--        <div *ngFor="let c of clientCategories | async">-->
-<!--          <button mat-menu-item (click)="onSelectCategory(c.id)">{{c.categoryName}}</button>-->
-<!--        </div>-->
-<!--      </mat-menu>-->
-<!--    </button>-->
-<!--  </div>-->
+    <div
+      class="menu"
+      [class.manager]="isManager"
+    >
+      <button type="button" mat-button
+              (click)="toggleSideBar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
 
-  <div class="nav">
-    <ng-container *ngIf="(isManager ? categories: clientCategories) | async as names">
-      <button mat-button *ngFor="let cat of names" (click)="onSelectCategory(cat.id)">{{cat.categoryName}}</button>
-    </ng-container>
-  </div>
+    <div
+      class="nav"
+    >
+      <button mat-button *ngFor="let cat of names" (click)="onSelectCategory(cat.id)">{{cat?.categoryName}}</button>
+    </div>
+  </ng-container>
 </nav>
 
 

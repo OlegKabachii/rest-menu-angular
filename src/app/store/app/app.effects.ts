@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {
   categoryByIdRemoved,
+  categoryByIdUpdated,
   categoryLoaded,
   categoryUploaded,
   dishByIdRemoved,
@@ -16,6 +17,7 @@ import {
   removeCategoryByID,
   removeDishByID,
   setActiveCategory,
+  updateCategoryByID,
   updateDishByID,
   updateInfo,
   uploadCategory,
@@ -27,7 +29,6 @@ import {CategoryService} from "../../services/category.service";
 import {InfoService} from "../../services/info.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../app.module";
-import {Info} from "../../shared/interfaces";
 
 @Injectable()
 export class AppEffects {
@@ -77,6 +78,13 @@ export class AppEffects {
         map((res: any) => dishUploaded({dish: res}))
       )
     )
+  ))
+
+  updateCategoryByID = createEffect(() => this.actions.pipe(
+    ofType(updateCategoryByID),
+    switchMap((res) => this.categoryService.updateCategory(res.id, res.category).pipe(
+      map(() => categoryByIdUpdated({id: res.id, category: res.category}))
+    ))
   ))
 
   updateDishByID = createEffect(() => this.actions.pipe(

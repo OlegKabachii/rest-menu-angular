@@ -20,8 +20,11 @@ export const categoryUploaded = createAction('[App] Category uploaded', props<{ 
 export const uploadDish = createAction('[App] Upload Dish', props<{ dish: Dish}>())
 export const dishUploaded = createAction('[App] Dish uploaded', props<{ dish: Dish}>())
 
-export const updateDishByID = createAction('[App] Upload Dish by ID', props<{ id: string, dish: Dish}>())
-export const dishByIdUpdated = createAction('[App] Dish by ID Uploaded', props<{ id: string, dish: Dish}>())
+export const updateCategoryByID = createAction('[App] Update Category by ID', props<{ id: string, category: Category}>())
+export const categoryByIdUpdated = createAction('[App] Category by ID Updated', props<{ id: string, category: Category}>())
+
+export const updateDishByID = createAction('[App] Update Dish by ID', props<{ id: string, dish: Dish}>())
+export const dishByIdUpdated = createAction('[App] Dish by ID Updated', props<{ id: string, dish: Dish}>())
 
 export const removeCategoryByID = createAction('[App] Remove Category by ID', props<{ id: string}>())
 export const categoryByIdRemoved = createAction('[App] Category by ID Removed', props<{ id: string}>())

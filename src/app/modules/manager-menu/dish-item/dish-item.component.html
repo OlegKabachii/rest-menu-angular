@@ -1,5 +1,4 @@
 
-
 <mat-card
   [class.available]='!isCategoryAvailable || !isDishAvailable'
   [class.readOnly]='!isCategoryAvailable'
@@ -12,6 +11,7 @@
       ><input
         class="editedField dish_title"
         formControlName="dishName"
+        placeholder="NAME"
         [readonly]='isReadOnly || !isDishAvailable'
       ></mat-card-title>
       <mat-slide-toggle
@@ -25,7 +25,7 @@
         <button
           mat-button
           color="warn"
-          (click)="remove()"
+          (click)="openDialog()"
         >REMOVE
         </button>
         <button
@@ -48,6 +48,7 @@
         <button
           mat-button
           (click)="submitChange()"
+          [disabled]="dishForm.invalid"
         >UPDATE</button>
       </div>
     </div>
@@ -56,16 +57,19 @@
     <input
       class="mat_card_input editedField"
       formControlName="dishWeight"
+      placeholder="100/200gr (weight)"
       [readonly]='isReadOnly || !isDishAvailable'
     >
     <input
       class="mat_card_input editedField"
       formControlName="dishPrice"
+      placeholder="$10/20 (price)"
       [readonly]='isReadOnly || !isDishAvailable'
     >
     <textarea
     class="editedField mat_card_input description"
     formControlName="dishDescription"
+    placeholder="DESCRIPTION"
     [readonly]='isReadOnly || !isDishAvailable'
     ></textarea>
   </mat-card-content>

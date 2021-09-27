@@ -1,15 +1,19 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ThemePalette} from "@angular/material/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {removeDishByID, updateDishByID, uploadDish} from "../../../store/app/app.actions";
+import {removeDishByID, updateDishByID} from "../../../store/app/app.actions";
 import {Dish} from "../../../shared/interfaces";
 import {Store} from "@ngrx/store";
 import {DishService} from "../../../services/dish.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../../shared/dialog/dialog.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {AsyncValidators} from "../../../shared/async.validators";
 
 @Component({
   selector: 'app-dish-item',
   templateUrl: './dish-item.component.html',
-  styleUrls: ['./dish-item.component.css']
+  styleUrls: ['./dish-item.component.scss']
 })
 export class DishItemComponent implements OnInit {
 
@@ -29,10 +33,10 @@ export class DishItemComponent implements OnInit {
 
   dishForm: FormGroup = new FormGroup({
     id: new FormControl('', Validators.required),
-    dishName: new FormControl('', Validators.required),
+    dishName: new FormControl('', Validators.required, [AsyncValidators.uniqDishName]),
     dishWeight: new FormControl('', Validators.required),
     dishPrice: new FormControl('', Validators.required),
-    dishDescription: new FormControl(''),
+    dishDescription: new FormControl('', Validators.maxLength(250)),
     image: new FormControl(''),
     dishAvailable: new FormControl(true)
   })
@@ -40,7 +44,9 @@ export class DishItemComponent implements OnInit {
 
   constructor(
     private store: Store<any>,
-    private dishService: DishService
+    private dishService: DishService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -70,9 +76,28 @@ export class DishItemComponent implements OnInit {
 
   submitChange() {
     this.store.dispatch(updateDishByID({id: this.dishForm.value.id, dish: this.dishForm.value as Dish}))
+    this.dishForm.markAsPristine();
+    this.openSnackBar('Updated!')
+    console.log(this.dishForm)
   }
 
   remove() {
     this.store.dispatch(removeDishByID({id: this.dishForm.value.id}))
+    this.openSnackBar('Removed!')
   }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.remove()
+    });
+  }
+  openSnackBar(message: string, action?: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+      panelClass: ['snackBar']
+    });
+  }
+
+
 }

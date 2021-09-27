@@ -10,6 +10,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatIconModule} from "@angular/material/icon";
+import {MatDialogModule} from "@angular/material/dialog";
+import { DialogComponent } from './dialog/dialog.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 const material = [
   BrowserAnimationsModule,
@@ -22,12 +25,16 @@ const material = [
   MatProgressSpinnerModule,
   MatSlideToggleModule,
   ReactiveFormsModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatDialogModule
 ]
 
 @NgModule({
-  imports: [material],
-  exports: [material]
+  imports: [material, MatFormFieldModule],
+  exports: [material],
+  declarations: [
+    DialogComponent
+  ]
 })
 export class MaterialModule {
 }
