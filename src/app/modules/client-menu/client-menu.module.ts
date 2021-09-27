@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ClientMenuComponent} from "./client-menu.component";
-
+import {MaterialModule} from "../../shared/material.module";
 
 
 @NgModule({
@@ -9,8 +9,12 @@ import {ClientMenuComponent} from "./client-menu.component";
     ClientMenuComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule,
+
+
   ],
-  exports:[ClientMenuComponent]
+  exports: [ClientMenuComponent]
 })
-export class ClientMenuModule { }
+export class ClientMenuModule {
+}

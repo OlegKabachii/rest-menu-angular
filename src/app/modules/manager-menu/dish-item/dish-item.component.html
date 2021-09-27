@@ -1,0 +1,81 @@
+
+<mat-card
+  [class.available]='!isCategoryAvailable || !isDishAvailable'
+  [class.readOnly]='!isCategoryAvailable'
+  class="dish-card"
+  [formGroup]='dishForm'
+>
+  <mat-card-header>
+    <div class="dish_title">
+      <mat-card-title
+      ><input
+        class="editedField dish_title"
+        formControlName="dishName"
+        placeholder="NAME"
+        [readonly]='isReadOnly || !isDishAvailable'
+      ></mat-card-title>
+      <mat-slide-toggle
+        [color]="color"
+        [checked]="dish.dishAvailable"
+        formControlName="dishAvailable"
+      ></mat-slide-toggle>
+      <div
+        class="buttons"
+        *ngIf="dishForm.dirty">
+        <button
+          mat-button
+          color="warn"
+          (click)="openDialog()"
+        >REMOVE
+        </button>
+        <button
+          mat-button
+          (click)="onReset()"
+        >CANCEL
+        </button>
+        <input
+          type="file"
+          class="dn"
+          #input
+          (click)="input.value = ''"
+          (change)="onFileUpload($event.target)"
+        >
+        <button
+          mat-button
+          (click)="triggerClick()"
+        >IMAGE
+        </button>
+        <button
+          mat-button
+          (click)="submitChange()"
+          [disabled]="dishForm.invalid"
+        >UPDATE</button>
+      </div>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="mat_card_content">
+    <input
+      class="mat_card_input editedField"
+      formControlName="dishWeight"
+      placeholder="100/200gr (weight)"
+      [readonly]='isReadOnly || !isDishAvailable'
+    >
+    <input
+      class="mat_card_input editedField"
+      formControlName="dishPrice"
+      placeholder="$10/20 (price)"
+      [readonly]='isReadOnly || !isDishAvailable'
+    >
+    <textarea
+    class="editedField mat_card_input description"
+    formControlName="dishDescription"
+    placeholder="DESCRIPTION"
+    [readonly]='isReadOnly || !isDishAvailable'
+    ></textarea>
+  </mat-card-content>
+  <img
+    mat-card-image
+    src="{{dish.image}}"
+    alt="Photo of dish">
+</mat-card>
+

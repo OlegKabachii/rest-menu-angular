@@ -1,6 +1,6 @@
 
-<app-header-page></app-header-page>
+<app-header-page (toggleEmitted)="onToggle()" (onManager)="onSwitched($event)"></app-header-page>
 
-<router-outlet></router-outlet>
+<app-sidenav-menu [toggleChanged]= "toggleChanged" [onSwitched] = managerState></app-sidenav-menu>
 
 <app-footer-page></app-footer-page>

@@ -1,5 +1,13 @@
-<div class="footer">
-  <h5> &copy; all rights reserved, 2021</h5>
 
-  <a href="#">UP</a>
-</div>
+<footer class="footer">
+    <p class="company-name">&copy; All Rights Reserved, 2021
+      <a href="#">My Restaurant</a></p>
+</footer>
+
+<a
+  class="back-to-top"
+  title="Back to top"
+  *ngIf="isShow"
+  (click)="gotoTop()"
+><img src="https://cdn-icons-png.flaticon.com/128/1621/1621913.png" alt=""></a>
+

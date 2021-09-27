@@ -1,0 +1,111 @@
+
+
+input {
+  &.ng-invalid.ng-touched {
+    border-bottom: 1px solid red;
+  }
+  &.ng-valid.ng-touched{
+    border: none;
+  }
+}
+
+textarea{
+  &.ng-invalid.ng-touched {
+    border-bottom: 1px solid red;
+  }
+  &.ng-valid.ng-touched{
+    border: none;
+  }
+}
+
+.readOnly {
+  pointer-events: none;
+}
+
+.editedField {
+  background: transparent;
+  border: 0;
+}
+
+.editedField:focus {
+  outline: none;
+}
+
+.slider {
+  max-width: 100%;
+  width: 98%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.top{
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.mat-slide-toggle {
+  width: 100%;
+  margin-top: 7px;
+  margin-left: 20px;
+
+}
+
+.btn_add {
+  color: white;
+}
+
+
+.available {
+  opacity: 0.5;
+
+}
+
+.readOnly {
+  pointer-events: none;
+}
+
+.title {
+  color: white;
+  margin-left: 10px;
+  font-size: 30px;
+  font-weight: 500;
+
+}
+
+.mat_card_input {
+  font-size: 24px;
+  color: white;
+  width: 100%;
+  resize: inherit;
+  overflow: hidden;
+  height: 100%;
+}
+
+@media only screen and (max-width: 960px) {
+  .slider {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-left: 15px;
+    margin-bottom: 5px;
+    font-weight: 200;
+  }
+
+  .mat-button{
+    font-size: 10px;
+  }
+
+  .catToggle {
+    margin-left: 15px;
+  }
+
+  .mat_card_input {
+    color: white;
+  }
+
+
+}
+

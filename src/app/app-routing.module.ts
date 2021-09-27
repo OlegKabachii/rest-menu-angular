@@ -6,12 +6,13 @@ import {ManagerMenuComponent} from "./modules/manager-menu/manager-menu.componen
 
 export const router: Routes = [
   {
-   // path: "", loadChildren: () => import("./modules/client-menu/client-menu.module").then(m => m.ClientMenuModule)
+   // path: "", loadChildren: () => import("./modules/app-menu/app-menu.module").then(m => m.ClientMenuModule)
     path:"", component: ClientMenuComponent
   },
   {
-    //path: "admin", loadChildren: () => import("./modules/manager-menu/manager-menu.module").then(m => m.ManagerMenuModule)
-    path:"admin", component: ManagerMenuComponent
+    // path: "admin", loadChildren: () => import("./modules/manager-menu/manager-menu.module").then(m => m.ManagerMenuModule)
+     path:"admin", component: ManagerMenuComponent
+
   }
 ]
 

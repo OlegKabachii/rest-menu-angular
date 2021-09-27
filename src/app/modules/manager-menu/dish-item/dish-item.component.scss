@@ -1,0 +1,160 @@
+
+input {
+  &.ng-invalid.ng-touched {
+    border-bottom: 1px solid red;
+  }
+  &.ng-valid.ng-touched{
+    border: none;
+  }
+}
+
+textarea{
+  &.ng-invalid.ng-touched {
+    border-bottom: 1px solid red;
+  }
+  &.ng-valid.ng-touched{
+    border: none;
+  }
+}
+
+mat-card ::ng-deep .mat-card-header-text{
+ margin: 0;
+}
+.slider {
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.available {
+  opacity: 0.5;
+
+}
+
+.dn {
+  display: none;
+}
+
+
+.readOnly {
+  pointer-events: none;
+}
+
+.editedField {
+  background: transparent;
+  border: 0;
+}
+
+.editedField:focus {
+  outline: none;
+}
+
+.title {
+  color: white;
+  margin-left: 10px;
+  font-size: 30px;
+  font-weight: 500;
+
+}
+
+.catToggle {
+  margin-left: 50px;
+  color: white;
+}
+
+.mat-card-image {
+  border-radius: 5%;
+  width: 200px;
+  margin-right: 30px;
+}
+
+.dish-card {
+  max-width: 98%;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+  height: 200px;
+  background-image: url("https://wallpaperaccess.com/full/967780.jpg");
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.dish_title {
+  font-size: 30px;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 15px;
+}
+
+.mat_card_content {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 20px;
+  padding-right: 20px;
+}
+
+.mat_card_input {
+  font-size: 24px;
+  color: white;
+  width: 100%;
+  resize: inherit;
+  overflow: hidden;
+  height: 100%;
+}
+
+@media only screen and (max-width: 960px) {
+  .dish-card {
+    max-width: 93%;
+    width: 93%;
+    height: 30%;
+    margin: 10px;
+    padding: 5px;
+    justify-content: space-between;
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-card-header-text {
+    margin: 3px;
+  }
+
+  .dish_title {
+    font-size: 12px;
+    margin-left: 0;
+    margin-bottom: 5px;
+    font-weight: 300;
+    width: 70px;
+  }
+
+  .mat-button{
+    font-size: 10px;
+  }
+
+  .mat_card_input {
+    color: white;
+    font-size: 10px;
+  }
+
+  .mat-card-image {
+    width: 100px;
+    height: 80px;
+    margin: 0;
+  }
+
+
+}
+

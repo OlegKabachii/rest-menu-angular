@@ -1,0 +1,138 @@
+/*HEADER*/
+.header {
+  display: flex;
+  justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #0fadd4;
+  max-width: 100%;
+
+}
+
+
+.readOnly {
+  pointer-events: none;
+}
+
+.editedField {
+  background: transparent;
+  border: 0;
+  color: white;
+}
+
+.editedField:focus {
+  outline: none;
+}
+
+.header img {
+  width: 70px;
+  text-align: center;
+  line-height: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+  font-size: 30px;
+}
+
+.header_info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  justify-items: center;
+  width: 70%;
+
+}
+
+.header_info-item {
+  margin: auto;
+  position: relative;
+}
+
+.header_info img {
+  position: absolute;
+  left: -30px;
+  width: 20px;
+  text-align: center;
+  line-height: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+  font-size: 30px;
+}
+
+.login img {
+  margin: 15px;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+  font-size: 30px;
+}
+
+
+/*---HEADER---*/
+
+.header_nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: normal;
+  padding: 10px;
+  border-bottom: 1px solid #0fadd4;
+  align-items: center;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.mat-button {
+  color: white;
+}
+
+.menu {
+  display: none;
+}
+
+.manager{
+  display: block;
+}
+
+/*---nav_bar---*/
+
+@media only screen and (max-width: 960px) {
+  .header_info {
+    flex-direction: column;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .menu {
+    display: block;
+
+  }
+
+  .menuBtn {
+    width: 30px;
+  }
+
+  .mat-icon-button {
+    color: #0fadd4;
+  }
+
+  .header_nav {
+    justify-content: flex-start;
+  }
+}

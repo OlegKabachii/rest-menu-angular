@@ -1,1 +1,35 @@
-<p>manager-menu works!</p>
+<ng-container
+  *ngIf="category | async as category"
+  [formGroup]="categoryForm"
+>
+
+  <div class="top">
+    <input
+      class="editedField title"
+      placeholder="NAME"
+      formControlName="categoryName"
+      (change)="updateCategory()"
+    >
+
+    <mat-slide-toggle
+      [color]="color"
+      formControlName="categoryAvailable"
+      (change)="updateCategory()"
+    ></mat-slide-toggle>
+  </div>
+
+
+  <div class="slider">
+    <ng-container *ngIf="dishes | async as dishes">
+
+      <app-dish-new></app-dish-new>
+
+      <app-dish-item
+        *ngFor="let dish of dishes"
+        [dish]='dish'
+        [isCategoryAvailable]="categoryForm.value.categoryAvailable"
+      ></app-dish-item>
+
+    </ng-container>
+  </div>
+</ng-container>

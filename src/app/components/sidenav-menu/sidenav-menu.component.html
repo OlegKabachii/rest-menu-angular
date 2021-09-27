@@ -1,0 +1,58 @@
+<mat-drawer-container
+  autosize
+  [formGroup]="newCategoryForm"
+>
+  <mat-drawer #drawer mode="side">
+    <ng-container *ngIf="isManager; else client">
+
+      <div class="add_category">
+        <button
+          mat-button
+          class="btn_add"
+          (click)="onAddCategory()">
+          <img src="https://cdn-icons-png.flaticon.com/512/1090/1090923.png" alt="addCategory">
+        </button>
+
+        <input
+          class="editedField"
+          [readOnly]="onAdd"
+          [class.onEdit]="!onAdd"
+          [hidden]="onAdd"
+          formControlName="categoryName"
+          [placeholder]="newCategoryName"
+          (blur)="createCategory()"
+        >
+      </div>
+
+      <ng-container *ngIf="(isManager ? categories : clientCategories) | async as categories">
+        <mat-nav-list>
+          <mat-list-item *ngFor="let cat of categories">
+            <a matLine (click)="onSelectCategory(cat.id); drawer.toggle()">{{ cat?.categoryName }}</a>
+            <mat-icon
+              (click)="openDialog(cat.id)"
+            >delete
+            </mat-icon>
+          </mat-list-item>
+        </mat-nav-list>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-template #client>
+      <ng-container *ngIf="category | async as category">
+        <ng-container *ngIf="(isManager ? categories : clientCategories) | async as names">
+          <mat-nav-list>
+            <mat-list-item *ngFor="let cat of names">
+              <a matLine (click)="onSelectCategory(cat.id); drawer.toggle()">{{ cat.categoryName }}</a>
+            </mat-list-item>
+          </mat-nav-list>
+        </ng-container>
+      </ng-container>
+    </ng-template>
+
+
+  </mat-drawer>
+
+  <router-outlet></router-outlet>
+
+</mat-drawer-container>

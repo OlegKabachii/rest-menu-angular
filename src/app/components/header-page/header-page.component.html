@@ -1,15 +1,80 @@
-<div class="header">
+<div
+  class="header"
+  [formGroup]="infoForm"
+>
   <img
-    src="https://st.depositphotos.com/1732591/2725/v/950/depositphotos_27257559-stock-illustration-crossed-fork-and-spoon-food.jpg"
+    [routerLink]="['/']"
+    (click)="clientPage()"
+    src="https://cdn-icons-png.flaticon.com/128/562/562729.png"
     alt="LOGO">
-  <div class="info">
-    <p>Address</p>
-    <p>Phone</p>
-    <p>WIFI</p>
-  </div>
+  <ng-container *ngIf="info | async as inf">
+    <div class="header_info" *ngFor="let i of inf">
+      <div class="header_info-item">
+        <div class="image_address">
+          <img src="https://cdn-icons-png.flaticon.com/128/1198/1198464.png" alt="">
+        </div>
+        <input
+          value="{{i.address}}"
+          formControlName="address"
+          class="editedField"
+          [readOnly]="!isManager"
+          (blur)="updateInfo()"
+        >
+      </div>
+      <div class="header_info-item">
+        <img src="https://cdn-icons-png.flaticon.com/128/2971/2971416.png" alt="">
+        <input
+          value="{{i.phone}}"
+          formControlName="phone"
+          class="editedField"
+          [readOnly]="!isManager"
+          (blur)="updateInfo()"
+        >
+      </div>
+      <div class="header_info-item">
+        <img src="https://cdn-icons-png.flaticon.com/128/747/747982.png" alt="">
+        <input
+          value="{{i.wifi}}"
+          formControlName="wifi"
+          class="editedField"
+          [readOnly]="!isManager"
+          (blur)="updateInfo()"
+        >
+      </div>
+    </div>
+  </ng-container>
 
   <div class="login">
-    <button>LOGIN</button>
+    <a
+      [routerLink]="'/admin'"
+      (click)="managerPage()"
+      href="">
+      <img src="https://cdn-icons-png.flaticon.com/128/1000/1000946.png" alt="Login"
+      ></a>
   </div>
-
 </div>
+
+<nav class="header_nav">
+  <ng-container *ngIf="(isManager ? categories: clientCategories) | async as names">
+
+
+    <div
+      class="menu"
+      [class.manager]="isManager"
+    >
+      <button type="button" mat-button
+              (click)="toggleSideBar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <div
+      class="nav"
+    >
+      <button mat-button *ngFor="let cat of names" (click)="onSelectCategory(cat.id)">{{cat?.categoryName}}</button>
+    </div>
+  </ng-container>
+</nav>
+
+
+
