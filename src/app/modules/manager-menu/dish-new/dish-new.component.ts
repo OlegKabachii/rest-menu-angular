@@ -7,6 +7,8 @@ import {categories, category, selectDishes, selectedCategory} from "../../../sto
 import {uploadDish} from "../../../store/app/app.actions";
 import {Dish} from "../../../shared/interfaces";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {skip, tap} from "rxjs/operators";
+import {existingNameValidator} from "../../../shared/async.validators";
 
 @Component({
   selector: 'app-dish-new',
@@ -21,7 +23,6 @@ export class DishNewComponent implements OnInit {
   dishes = this.store.pipe(select(selectDishes))
   category = this.store.pipe(select(category))
   selectedCategory = this.store.pipe(select(selectedCategory))
-
   color: ThemePalette = 'warn';
   checked = true;
   isCategoryAvailable = true
@@ -31,16 +32,20 @@ export class DishNewComponent implements OnInit {
   previewImage: any
   loadImage = true
 
+  dishesName = this.store.pipe(select(selectDishes), skip(1), tap(res => {
+    const allNames = res.map(el => el.dishName.toUpperCase())
+    this.newDishForm = new FormGroup({
+      dishName: new FormControl('', [Validators.required], [existingNameValidator(allNames)]),
+      dishWeight: new FormControl('', Validators.required),
+      dishPrice: new FormControl('', Validators.required),
+      dishDescription: new FormControl('', Validators.maxLength(250)),
+      image: new FormControl(''),
+      dishAvailable: new FormControl(false),
+      categoryId: new FormControl('')
+    })
+  })).subscribe()
 
-  newDishForm: FormGroup = new FormGroup({
-    dishName: new FormControl('', [Validators.required]),
-    dishWeight: new FormControl('', Validators.required),
-    dishPrice: new FormControl('', Validators.required),
-    dishDescription: new FormControl('', Validators.maxLength(250)),
-    image: new FormControl(''),
-    dishAvailable: new FormControl(false),
-    categoryId: new FormControl('')
-  })
+  newDishForm: FormGroup = {} as FormGroup
 
 
   constructor(

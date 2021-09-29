@@ -12,8 +12,8 @@
         class="editedField dish_title"
         formControlName="dishName"
         placeholder="NAME"
-        [readonly]='isReadOnly || !isDishAvailable'
-      ></mat-card-title>
+        [readonly]='isReadOnly || !isDishAvailable'>
+      </mat-card-title>
       <mat-slide-toggle
         [color]="color"
         [checked]="dish.dishAvailable"
@@ -48,7 +48,7 @@
         <button
           mat-button
           (click)="submitChange()"
-          [disabled]="dishForm.invalid"
+          [disabled]="dishForm.invalid && !imageRemoved"
         >UPDATE</button>
       </div>
     </div>
@@ -57,7 +57,7 @@
     <input
       class="mat_card_input editedField"
       formControlName="dishWeight"
-      placeholder="100/200gr (weight)"
+      placeholder="100/200gr/ml (weight / volume)"
       [readonly]='isReadOnly || !isDishAvailable'
     >
     <input
@@ -73,9 +73,24 @@
     [readonly]='isReadOnly || !isDishAvailable'
     ></textarea>
   </mat-card-content>
+  <div class="img-wraps">
+    <span
+      class="closes"
+      title="Delete"
+      [hidden]="imageRemoved || !dish.image"
+      (click)="removeImage()"
+    >×</span>
   <img
     mat-card-image
-    src="{{dish.image}}"
-    alt="Photo of dish">
+    class="img-responsive"
+    [hidden]="imageRemoved || (!previewImage && !dish.image)"
+    src="{{previewImage? previewImage : dish.image}}"
+    alt="Photo of dish"
+    *ngIf="loadImage; else loading">
+  </div>
+
 </mat-card>
 
+<ng-template #loading>
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</ng-template>

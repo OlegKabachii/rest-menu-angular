@@ -8,12 +8,20 @@
 
 body {
   margin: 0 auto;
-  max-width: 1965px;
-  width:100%;
   background-image: url("https://images.unsplash.com/photo-1602748917994-ae7274381cd7?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTM5fHxyZXN0YXVyYW50fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  body{
+    width: 100vh;
+  }
+}
+
+.mat-drawer-container > .mat-drawer-content {
+  overflow: hidden;
 }
 
 .snackBar {
@@ -29,3 +37,4 @@ body {
   text-align: center;
   font-size: 16px;
 }
+

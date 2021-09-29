@@ -7,6 +7,8 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Category} from "../../shared/interfaces";
+import {existingNameValidator} from "../../shared/async.validators";
+import {skip, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-sidenav-menu',
@@ -18,7 +20,6 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
 
   @Input() toggleChanged: boolean = false
   @Input() onSwitched: boolean = false
-
   @ViewChild('drawer') drawer: any
 
   category = this.store.pipe(select(category))
@@ -29,20 +30,24 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
   isManager: any = false
   newCategoryName = ''
 
-  newCategoryForm: FormGroup = new FormGroup({
-    categoryName: new FormControl('', Validators.required),
-    categoryAvailable: new FormControl(false)
-  })
+  categoriesName = this.store.pipe(select(categories), skip(1), tap(res => {
+    const allNames = res.map(el => el.categoryName.toUpperCase())
+    this.newCategoryForm = new FormGroup({
+      categoryName: new FormControl('', Validators.required, [existingNameValidator(allNames)]),
+      categoryAvailable: new FormControl(false)
+    })
+  })).subscribe()
+
+  newCategoryForm: FormGroup = {} as FormGroup
 
   constructor(private store: Store<any>,
               private dialog: MatDialog,
               private snackBar: MatSnackBar
   ) {
   }
-  ngOnInit(): void {
-    console.log(this.newCategoryForm.value)
-    }
 
+  ngOnInit(): void {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.toggleChanged && !changes.toggleChanged.firstChange) {
@@ -56,7 +61,6 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
     }
   }
 
-
   onSelectCategory(id: string) {
     this.store.dispatch(loadDishesByCategory({category: id}))
   }
@@ -66,17 +70,15 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
     this.newCategoryName = 'CATEGORY NAME'
   }
 
-
   createCategory() {
     if (this.newCategoryForm.valid && this.newCategoryForm.value.categoryName.trim()) {
       this.newCategoryForm.patchValue({categoryAvailable: false})
       this.store.dispatch(uploadCategory({category: this.newCategoryForm.value as Category}))
       this.onAdd = true
       this.newCategoryForm.reset()
+      this.openSnackBar('Created!')
     }
-    this.openSnackBar('Created!')
   }
-
 
   removeCategory(id: string) {
     this.store.dispatch(removeCategoryByID({id}))
