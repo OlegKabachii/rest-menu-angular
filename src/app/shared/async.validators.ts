@@ -13,10 +13,10 @@ export function existingDishNameValidator(dishesNames: string[], dish: Dish): As
   };
 }
 
-export function existingCategoryNameValidator(categoryNames: string[]): AsyncValidatorFn {
+export function existingNameValidator(names: string[]): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-    return from(categoryNames).pipe(map(() => {
-      return categoryNames.includes(control.value.toUpperCase()) ? {"categoryNameExists": true} : null;
+    return from(names).pipe(map(() => {
+      return names.includes(control.value.toUpperCase()) ? {"NameExist": true} : null;
     }));
   };
 }

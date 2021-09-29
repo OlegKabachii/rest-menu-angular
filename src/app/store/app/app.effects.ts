@@ -43,7 +43,7 @@ export class AppEffects {
 
   loadAllCategory = createEffect(() => this.actions.pipe(
     ofType(loadCategory),
-    switchMap((params) => this.categoryService.getAllCategories().pipe(
+    switchMap(() => this.categoryService.getAllCategories().pipe(
       mergeMap((res: any) => [categoryLoaded({categories: res}), loadDishesByCategory({category: res[0].id})])
     ))
   ))

@@ -1,88 +1,92 @@
-
-<ng-container *ngIf="category | async as category">
-<button
-  mat-button
-  (click)="add()"
-  class="btn_add"
->TOGGLE ADD DISH</button>
-
-<mat-card
-  [class.dn]="!onAdd"
-  [class.dish-card]="onAdd"
-  [formGroup]='newDishForm'
+<ng-container
+  *ngIf="newDishForm.value"
 >
-  <mat-card-header>
-    <div class="dish_title">
-      <mat-card-title>
+  <ng-container *ngIf="category | async as category">
+    <button
+      mat-button
+      (click)="add()"
+      class="btn_add"
+    >TOGGLE ADD DISH
+    </button>
+
+    <mat-card
+      [class.dn]="!onAdd"
+      [class.dish-card]="onAdd"
+      [formGroup]='newDishForm'
+    >
+      <mat-card-header>
+        <div class="dish_title">
+          <mat-card-title>
+
+            <input
+              class="editedField dish_title "
+              formControlName="dishName"
+              placeholder="NAME"
+            >
+          </mat-card-title>
+          <mat-slide-toggle
+            [color]="color"
+            [checked]="newDishAvailable"
+            formControlName="dishAvailable"
+          ></mat-slide-toggle>
+          <div
+            class="buttons"
+          >
+            <button
+              mat-button
+              (click)="onReset()"
+            >CANCEL
+            </button>
+            <input
+              type="file"
+              class="dn"
+              #input
+              (click)="input.value = ''"
+              (change)="onFileUpload($event.target)"
+            >
+            <button
+              mat-button
+              (click)="triggerClick()"
+            >IMAGE
+            </button>
+            <button
+              mat-button
+              (click)="submit()"
+              [disabled]="newDishForm.invalid"
+            >SAVE
+            </button>
+          </div>
+        </div>
+      </mat-card-header>
+      <mat-card-content class="mat_card_content">
 
         <input
-        class="editedField dish_title "
-        formControlName="dishName"
-        placeholder="NAME"
-      >
-      </mat-card-title>
-      <mat-slide-toggle
-        [color]="color"
-        [checked]="newDishAvailable"
-        formControlName="dishAvailable"
-      ></mat-slide-toggle>
-      <div
-        class="buttons"
-      >
-        <button
-          mat-button
-          (click)="onReset()"
-        >CANCEL
-        </button>
-        <input
-          type="file"
-          class="dn"
-          #input
-          (click)="input.value = ''"
-          (change)="onFileUpload($event.target)"
+          class="mat_card_input editedField"
+          formControlName="dishWeight"
+          placeholder="100/200gr/ml (weight / volume)"
         >
-        <button
-          mat-button
-          (click)="triggerClick()"
-        >IMAGE
-        </button>
-        <button
-          mat-button
-          (click)="submit()"
-          [disabled]="newDishForm.invalid"
-        >SAVE
-        </button>
-      </div>
-    </div>
-  </mat-card-header>
-  <mat-card-content class="mat_card_content">
+        <input
+          class="mat_card_input editedField"
+          formControlName="dishPrice"
+          placeholder="$10/20 (price)"
+        >
+        <textarea
+          class="mat_card_input editedField description"
+          formControlName="dishDescription"
+          placeholder="DESCRIPTION"
+        ></textarea>
+      </mat-card-content>
+      <img
+        alt="preview dish image"
+        class="mat-card-image"
+        [src]="previewImage"
+        [hidden]="!previewImage"
+        *ngIf="loadImage; else loading">
+    </mat-card>
 
-    <input
-    class="mat_card_input editedField"
-    formControlName="dishWeight"
-    placeholder="100/200gr/ml (weight / volume)"
-  >
-    <input
-    class="mat_card_input editedField"
-    formControlName="dishPrice"
-    placeholder="$10/20 (price)"
-  >
-    <textarea
-    class="mat_card_input editedField description"
-    formControlName="dishDescription"
-    placeholder="DESCRIPTION"
-  ></textarea>
-  </mat-card-content>
-  <img
-    alt="preview dish image"
-    class="mat-card-image"
-    [src]="previewImage"
-    [hidden]="!previewImage"
-    *ngIf="loadImage; else loading">
-</mat-card>
+    <ng-template #loading>
+      <mat-progress-bar mode="buffer"></mat-progress-bar>
+    </ng-template>
 
-<ng-template #loading>
-  <mat-progress-bar mode="buffer"></mat-progress-bar>
-</ng-template>
-
+  </ng-container>
 </ng-container>

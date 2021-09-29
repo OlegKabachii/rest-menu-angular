@@ -7,7 +7,7 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Category} from "../../shared/interfaces";
-import {existingCategoryNameValidator} from "../../shared/async.validators";
+import {existingNameValidator} from "../../shared/async.validators";
 import {skip, tap} from "rxjs/operators";
 
 @Component({
@@ -20,7 +20,6 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
 
   @Input() toggleChanged: boolean = false
   @Input() onSwitched: boolean = false
-
   @ViewChild('drawer') drawer: any
 
   category = this.store.pipe(select(category))
@@ -30,11 +29,11 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
   onAdd: boolean = true
   isManager: any = false
   newCategoryName = ''
-  allCategoriesName: string[] = []
+
   categoriesName = this.store.pipe(select(categories), skip(1), tap(res => {
     const allNames = res.map(el => el.categoryName.toUpperCase())
     this.newCategoryForm = new FormGroup({
-      categoryName: new FormControl('', Validators.required, [existingCategoryNameValidator(allNames)]),
+      categoryName: new FormControl('', Validators.required, [existingNameValidator(allNames)]),
       categoryAvailable: new FormControl(false)
     })
   })).subscribe()
@@ -50,7 +49,6 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.toggleChanged && !changes.toggleChanged.firstChange) {
       this.drawer.toggle()
@@ -63,7 +61,6 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
     }
   }
 
-
   onSelectCategory(id: string) {
     this.store.dispatch(loadDishesByCategory({category: id}))
   }
@@ -72,7 +69,6 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
     this.onAdd = false
     this.newCategoryName = 'CATEGORY NAME'
   }
-
 
   createCategory() {
     if (this.newCategoryForm.valid && this.newCategoryForm.value.categoryName.trim()) {
@@ -83,7 +79,6 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
       this.openSnackBar('Created!')
     }
   }
-
 
   removeCategory(id: string) {
     this.store.dispatch(removeCategoryByID({id}))
