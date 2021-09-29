@@ -77,8 +77,8 @@
     alt="preview dish image"
     class="mat-card-image"
     [src]="previewImage"
+    [hidden]="!previewImage"
     *ngIf="loadImage; else loading">
-
 </mat-card>
 
 <ng-template #loading>

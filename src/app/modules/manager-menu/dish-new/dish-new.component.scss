@@ -18,7 +18,7 @@ textarea{
 }
 
 mat-card ::ng-deep .mat-card-header-text{
-  margin: 0;
+  margin: 0 10px;
 }
 
 .btn_add {
@@ -77,6 +77,8 @@ mat-card ::ng-deep .mat-card-header-text{
 .dish_title {
   font-size: 30px;
   color: white;
+  width: 10ch;
+  margin-right: 40px;
 }
 
 .mat_card_content {
@@ -90,7 +92,7 @@ mat-card ::ng-deep .mat-card-header-text{
 .mat_card_input {
   font-size: 24px;
   color: white;
-  width: 100%;
+  width: 25ch;
   resize: inherit;
   overflow: hidden;
   height: 100%;

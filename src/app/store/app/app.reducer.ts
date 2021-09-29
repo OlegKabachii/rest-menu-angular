@@ -34,7 +34,7 @@ const appReducer = createReducer(
 
   on(categoryLoaded, (state, params) => {
     return {
-      ...state, categories: params.categories.slice().sort((a,b) => a.categoryName > b.categoryName? 1: -1)
+      ...state, categories: params.categories
     }
   }),
   on(infoLoaded, (state, params) => {

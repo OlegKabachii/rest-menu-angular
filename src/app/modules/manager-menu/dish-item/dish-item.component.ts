@@ -3,12 +3,14 @@ import {ThemePalette} from "@angular/material/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {removeDishByID, updateDishByID} from "../../../store/app/app.actions";
 import {Dish} from "../../../shared/interfaces";
-import {Store} from "@ngrx/store";
+import {select, Store} from "@ngrx/store";
 import {DishService} from "../../../services/dish.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../../shared/dialog/dialog.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AsyncValidators} from "../../../shared/async.validators";
+import {selectDishes} from "../../../store/app/app.selectors";
+import {existingDishNameValidator} from "../../../shared/async.validators";
+
 
 @Component({
   selector: 'app-dish-item',
@@ -30,16 +32,11 @@ export class DishItemComponent implements OnInit {
   fileToUpload!: File | any
   previewImage: any
   loadImage = true
+  imageRemoved = false
 
-  dishForm: FormGroup = new FormGroup({
-    id: new FormControl('', Validators.required),
-    dishName: new FormControl('', Validators.required, [AsyncValidators.uniqDishName]),
-    dishWeight: new FormControl('', Validators.required),
-    dishPrice: new FormControl('', Validators.required),
-    dishDescription: new FormControl('', Validators.maxLength(250)),
-    image: new FormControl(''),
-    dishAvailable: new FormControl(true)
-  })
+  allDishesName: string[] = []
+  dishesName = this.store.pipe(select(selectDishes)).subscribe(res => this.allDishesName = res.map(el => el.dishName.toUpperCase()))
+  dishForm: FormGroup = {} as FormGroup
 
 
   constructor(
@@ -51,7 +48,20 @@ export class DishItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initForm()
     this.dishForm.patchValue(this.dish)
+  }
+
+  initForm() {
+    this.dishForm = new FormGroup({
+      id: new FormControl('', Validators.required),
+      dishName: new FormControl('', [Validators.required], [existingDishNameValidator(this.allDishesName, this.dish)]),
+      dishWeight: new FormControl('', Validators.required),
+      dishPrice: new FormControl('', Validators.required),
+      dishDescription: new FormControl('', Validators.maxLength(250)),
+      image: new FormControl(''),
+      dishAvailable: new FormControl(true)
+    })
   }
 
   triggerClick() {
@@ -60,6 +70,7 @@ export class DishItemComponent implements OnInit {
 
   async onFileUpload(event: any) {
     this.loadImage = false
+    this.imageRemoved = false
     this.fileToUpload = event.files[0]
     await this.dishService.sendImage(this.fileToUpload).subscribe(
       (res) => {
@@ -70,20 +81,27 @@ export class DishItemComponent implements OnInit {
   }
 
   onReset() {
+    this.imageRemoved = false
     this.dishForm.reset()
     this.dishForm.patchValue(this.dish)
   }
 
   submitChange() {
-    this.store.dispatch(updateDishByID({id: this.dishForm.value.id, dish: this.dishForm.value as Dish}))
+    const dish = {...this.dishForm.value, image: this.imageRemoved ? '' : this.dishForm.value.image} as Dish
+
+    this.store.dispatch(updateDishByID({id: this.dishForm.value.id, dish}))
     this.dishForm.markAsPristine();
     this.openSnackBar('Updated!')
-    console.log(this.dishForm)
   }
 
   remove() {
     this.store.dispatch(removeDishByID({id: this.dishForm.value.id}))
     this.openSnackBar('Removed!')
+  }
+
+  removeImage() {
+    this.imageRemoved = true
+    this.dishForm.markAsDirty()
   }
 
   openDialog() {
@@ -92,6 +110,7 @@ export class DishItemComponent implements OnInit {
       if (result) this.remove()
     });
   }
+
   openSnackBar(message: string, action?: string) {
     this.snackBar.open(message, action, {
       duration: 4000,

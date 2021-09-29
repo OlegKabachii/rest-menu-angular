@@ -17,7 +17,7 @@ class MatSnackBarMock{
   open(){}
 }
 
-fdescribe('ManagerMenuComponent', () => {
+describe('ManagerMenuComponent', () => {
   let component: ManagerMenuComponent;
   let fixture: ComponentFixture<ManagerMenuComponent>;
   let actions: ReplaySubject<any> = new ReplaySubject<any>(1)

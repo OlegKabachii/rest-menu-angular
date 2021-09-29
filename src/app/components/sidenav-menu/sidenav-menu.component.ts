@@ -7,6 +7,8 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Category} from "../../shared/interfaces";
+import {existingCategoryNameValidator} from "../../shared/async.validators";
+import {skip, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-sidenav-menu',
@@ -28,20 +30,25 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
   onAdd: boolean = true
   isManager: any = false
   newCategoryName = ''
+  allCategoriesName: string[] = []
+  categoriesName = this.store.pipe(select(categories), skip(1), tap(res => {
+    const allNames = res.map(el => el.categoryName.toUpperCase())
+    this.newCategoryForm = new FormGroup({
+      categoryName: new FormControl('', Validators.required, [existingCategoryNameValidator(allNames)]),
+      categoryAvailable: new FormControl(false)
+    })
+  })).subscribe()
 
-  newCategoryForm: FormGroup = new FormGroup({
-    categoryName: new FormControl('', Validators.required),
-    categoryAvailable: new FormControl(false)
-  })
+  newCategoryForm: FormGroup = {} as FormGroup
 
   constructor(private store: Store<any>,
               private dialog: MatDialog,
               private snackBar: MatSnackBar
   ) {
   }
+
   ngOnInit(): void {
-    console.log(this.newCategoryForm.value)
-    }
+  }
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -73,8 +80,8 @@ export class SidenavMenuComponent implements OnInit, OnChanges {
       this.store.dispatch(uploadCategory({category: this.newCategoryForm.value as Category}))
       this.onAdd = true
       this.newCategoryForm.reset()
+      this.openSnackBar('Created!')
     }
-    this.openSnackBar('Created!')
   }
 
 

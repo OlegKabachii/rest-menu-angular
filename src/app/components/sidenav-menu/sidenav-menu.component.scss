@@ -3,47 +3,66 @@ input {
   &.ng-invalid.ng-touched {
     border-bottom: 1px solid red;
   }
-  &.ng-valid.ng-touched{
+
+  &.ng-valid.ng-touched {
     border: none;
   }
 }
 
-.mat-drawer-container{
-  background-color: rgba(0,0,0,0);
+.create_category {
+  position: relative;
+
+  .btn {
+    position: absolute;
+    left: 100%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+    img {
+      width: 20px
+    }
+  }
+}
+
+.mat-drawer-container {
+  background-color: rgba(0, 0, 0, 0);
   min-width: 100vh;
   min-height: 100vh;
 }
 
-.mat-drawer{
-  background-color: rgba(0,0,0,0);
+.mat-drawer {
+  background-color: rgba(0, 0, 0, 0);
   width: 30%;
   height: 100%;
 }
 
 .btn_add img {
   width: 25px;
- }
+}
 
-.title{
+.title {
   align-items: center;
   font-size: 20px;
   font-weight: 400;
 }
 
-.add_category{
+.add_category {
   display: flex;
   justify-content: flex-start;
   width: 100%;
 }
 
-.onEdit{
+.onEdit {
   border-bottom: 1px solid white;
 }
 
 .readOnly {
   pointer-events: none;
   border-bottom: none;
- }
+}
 
 .editedField {
   background: transparent;
@@ -59,7 +78,7 @@ input {
 
 @media only screen and (max-width: 960px) {
 
-  .mat-drawer{
+  .mat-drawer {
     width: 70%;
   }
 

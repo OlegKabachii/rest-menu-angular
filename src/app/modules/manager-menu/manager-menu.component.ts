@@ -16,6 +16,8 @@ import {filter} from "rxjs/operators";
 })
 export class ManagerMenuComponent implements OnInit {
 
+  allCategoriesName: string[] = []
+  categoriesName = this.store.pipe(select(categories)).subscribe(res => this.allCategoriesName = res.map(el => el.categoryName.toUpperCase()))
 
   categoryForm: FormGroup = new FormGroup({
     categoryName: new FormControl('', [Validators.required]),

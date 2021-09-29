@@ -21,7 +21,6 @@ export class DishNewComponent implements OnInit {
   dishes = this.store.pipe(select(selectDishes))
   category = this.store.pipe(select(category))
   selectedCategory = this.store.pipe(select(selectedCategory))
-
   color: ThemePalette = 'warn';
   checked = true;
   isCategoryAvailable = true
